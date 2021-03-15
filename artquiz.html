@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>ARTIC Art Quiz</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&display=swap" rel="stylesheet">        
+        <link rel="stylesheet" href="artquiz.css">
+        <script async defer src="artquiz.js"></script>
+
+    </head>
+    <body class="p-5" id="body">
+        <h1>The ARTIC Modern Art Quiz</h1>
+        <p id="winning">The goal of the quiz is to earn 100 points!</p>
+        <p id="points-id"> Current points = <span id="points">0</span></p>
+        <div id ="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm"><b>Who made this? </b>(10 points)</span>
+            <input id="artist-name" type="text" class="form-control">
+        </div>
+        <div id ="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm"><b>Title of piece? </b>(20 points)</span>
+            <input id="piece-name" type="text" class="form-control">
+        </div>
+        <div id ="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm"><b>Year Made? </b>(w/in 25 years either way) (5 points)</span>
+            <input id="date-made" type="text" class="form-control">
+        </div>
+        <div>
+            <h4 id="name-answer" class="text-danger"></h4>
+            <h4 id="title-answer" class="text-danger"></h4>
+            <h4 id="date-answer" class="text-danger"></h4>
+            <h6 id="continue"></h6>
+        </div>
+
+        <div>
+            <br>
+            <button type="submit" class="btn btn-primary btn" id="submit-answer">Submit</button>
+            <button type="play-again" class="btn btn-success" id="play-again">Next piece</button>
+            <br>
+        </div>
+
+        <br>
+        <!-- giving credit to ARTIC -->
+        <p><i>Data and images courtesy of <a href="https://www.artic.edu/">the Art Institute of Chicago</a></i></p>
+        <!-- canvas element -->
+        <canvas id="canvas" height="500" width="500"></canvas>
+
+    </body>
+</html>

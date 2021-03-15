@@ -1,0 +1,10 @@
+.body-gradient {
+    background-image: radial-gradient(#fd452d, #aee024, #e4f);
+}
+
+.winning {
+    font-family: 'Merriweather Sans', sans-serif;
+    font-weight: bold;
+    font-size: 25pt;
+    color: rgb(248, 237, 237);
+}
