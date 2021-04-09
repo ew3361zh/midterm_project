@@ -159,6 +159,37 @@ function answerCheck(arr, arr2){
     return arr.every(i => arr2.includes(i));
   }
 
+
+
+function nameCorrect(nameAnswer) {
+    // do all the checks here, normalize name and compare
+    // return true/false 
+
+    nameAnswer = nameAnswer.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase()
+    //create a list of the answer to check the pieces against the full correct answer
+    let nameAnswerList = nameAnswer.split(' ')
+    //second bit of code to remove extra internal spaces in user answers taken from https://stackoverflow.com/questions/16974664/remove-extra-spaces-in-string-javascript
+    nameAnswer = nameAnswer.replace(/\s+/g,' ').trim()
+    
+    let normalizedArtistName = artistName.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase()
+    //normalizing and uppercasing the artist name and also changing it to a list
+    //so that if the user enters "Manet" and the artist is "Edouard Manet", they get it right
+    let artistNameList = artistName.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase().split(' ')
+    
+    // replacing the condition if (answerCheck(nameAnswerList, artistNameList) || artistNameList.includes(nameAnswer) || normalizedArtistName == nameAnswer)
+
+    if (answerCheck(nameAnswerList, artistNameList)) {
+        return true
+    } else if (artistNameList.includes(nameAnswer)) {
+        return true
+    } else if (normalizedArtistName == nameAnswer) {
+        return true 
+    }
+
+    return false 
+}
+
+
 //submit button event listener
 submitButton.addEventListener('click', function () {
     //reactivate all the inputs
@@ -169,15 +200,8 @@ submitButton.addEventListener('click', function () {
     //using normalization here because of the instances of accented letters in the artist and piece names
     //so also wanted to make sure to accomodate for the user potentially using them
     //normalize and replace code taken from https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
-    let nameAnswer = artistInput.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase()
-    //create a list of the answer to check the pieces against the full correct answer
-    let nameAnswerList = nameAnswer.split(' ')
-    //second bit of code to remove extra internal spaces in user answers taken from https://stackoverflow.com/questions/16974664/remove-extra-spaces-in-string-javascript
-    nameAnswer = nameAnswer.replace(/\s+/g,' ').trim()
-    let normalizedArtistName = artistName.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase()
-    //normalizing and uppercasing the artist name and also changing it to a list
-    //so that if the user enters "Manet" and the artist is "Edouard Manet", they get it right
-    let artistNameList = artistName.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase().split(' ')
+    let nameAnswer = artistInput.value
+    
     
     //just doing a normalization, uppercase and internal/external trim on the title of the piece and title answer
     let titleAnswer = titleInput.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toUpperCase()
@@ -207,12 +231,15 @@ submitButton.addEventListener('click', function () {
     hasAnswered = true
 
     //logic blocks for calculating whether the user has gotten the answers right
-    if (answerCheck(nameAnswerList, artistNameList) || artistNameList.includes(nameAnswer) || normalizedArtistName == nameAnswer) {
+    if (nameAnswer == '') {
+        // do whatever if user hasn't answered (nothing?)
+    }
+    else if (nameCorrect(nameAnswer)) {  // answered and the answer is right
         nameResultElement.innerHTML = `Correct! + 10 Points! ${artistName} is the artist of this piece`
         nameResultElement.classList.remove('text-danger')
         nameResultElement.classList.add('text-success')
         pointsTally = pointsTally + 10
-    } else if (nameAnswer != '' && !artistNameList.includes(nameAnswer)){
+    } else {   // answered but wrong answer 
         nameResultElement.innerHTML = `-5 points. Sorry, the correct answer is ${artistName}`
         nameResultElement.classList.remove('text-success')
         nameResultElement.classList.add('text-danger')
